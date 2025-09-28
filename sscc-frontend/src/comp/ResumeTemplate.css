@@ -1,0 +1,446 @@
+/*
+* Base Styles: These apply to all templates and provide the core structure.
+* They are designed to be clean and modern.
+*/
+.resume-template-container {
+    display: flex;
+    /* Removed box-shadow as it causes rendering issues in html2pdf */
+    border-radius: 0; /* Simpler for PDF rendering */
+    overflow: hidden;
+    width: 604px;
+     height: 604px;
+    min-height: 11in;
+     margin-top: 10px;
+    border: 2px solid yellow;
+    transition: none; /* No animations for PDF */
+    /* border: 10px solid #0b57bc; */
+}
+
+.left-column, .right-column {
+    padding: 2.8rem 1.8rem; 
+    /* border: 9px solid #020a15; */
+}
+.section-title{
+    /* border :2px solid black; */
+}
+
+.left-column {
+    width: 35%;
+     /* border: 1px solid #0b57bc; */
+}
+
+.right-column {
+    width: 65%;
+     /* border: 1px solid #0b57bc; */
+}
+
+.resume-template-container h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+/* Removed ::after pseudo-element as it is not rendered by html2pdf */
+.resume-template-container h2::after {
+    display: none;
+}
+
+.resume-template-container h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 0.2rem;
+}
+
+.resume-template-container p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.7rem;
+    font-size: 0.85rem;
+}
+
+.contact-item svg {
+    font-size: 1rem;
+}
+
+.experience-item, .education-item {
+    margin-bottom: 1.5rem;
+}
+
+.experience-item ul {
+    margin-top: 0.5rem;
+    padding-left: 1.2rem;
+}
+
+.experience-item li {
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+}
+
+/* -----------------------------------------------------------------------------------------
+* Unique Template Styles: Updated for professional and attractive, non-vibrant look
+* ----------------------------------------------------------------------------------------- */
+
+/* Professional Template */
+.resume-template-container.professional {
+    font-family: 'Inter', sans-serif;
+margin-left: 20px;
+width: 700px;
+height: 900px;
+margin-top: 10px;
+    border: 1px solid #918d8d;
+}
+.resume-template-container.professional .left-column {
+    background-color: #f8f9fa;
+    border-right: 1px solid #e9ecef;
+}
+.resume-template-container.professional .right-column {
+    background-color: #ffffff;
+    border-left: 5px solid #2c3e50; /* Changed to a dark, professional blue */
+    /* box-shadow: -5px 0 10px rgba(0, 0, 0, 0.05); - Removed for PDF compatibility */
+}
+.resume-template-container.professional .name {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #2c3e50;
+    letter-spacing: -1px;
+}
+.resume-template-container.professional .title {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+}
+.resume-template-container.professional h2 {
+    color: #2c3e50;
+    border-bottom: 2px solid #34495e;
+    margin-bottom: 1rem;
+}
+.resume-template-container.professional h2::after { display: none; }
+
+/* Creative Template */
+.resume-template-container.creative {
+    font-family: 'Playfair Display', serif;
+    background: #f0f4f7; /* Removed gradient */
+    border: 3px solid #7a7a7a; /* Muted border color */
+    border-radius: 0; /* Simpler for PDF rendering */
+    /* box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15); - Removed for PDF compatibility */
+    width: 700px;
+height: 900px;
+}
+.resume-template-container.creative .left-column {
+    background: #ffffff;
+    border-radius: 0; /* Simpler for PDF rendering */
+}
+.resume-template-container.creative .right-column {
+    background: #e4e7ea; /* Removed gradient */
+}
+.resume-template-container.creative .name {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #4a4e69;
+}
+.resume-template-container.creative .title {
+    font-size: 1.1rem;
+    color: #7a8698;
+    font-style: italic;
+}
+.resume-template-container.creative h2 {
+    color: #4a4e69;
+    font-size: 1.3rem;
+    border-bottom: 3px dashed #7a8698;
+    padding-bottom: 0.5rem;
+}
+.resume-template-container.creative h2::after { display: none; }
+
+/* Technical Template */
+.resume-template-container.technical {
+    font-family: 'Source Code Pro', monospace;
+    color: #212529;
+    background-color: #ffffff;
+    border: 2px solid #6c757d; /* Muted gray border */
+    width: 700px;
+height: 900px;
+}
+.resume-template-container.technical .left-column {
+    background-color: #f8f9fa;
+    border-right: 2px solid #6c757d;
+}
+.resume-template-container.technical .name {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #212529;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.resume-template-container.technical .title {
+    font-size: 1.2rem;
+    color: #495057;
+}
+.resume-template-container.technical h2 {
+    color: #343a40;
+    border-bottom: 2px solid #343a40;
+    padding-bottom: 0.2rem;
+    margin-bottom: 1rem;
+}
+.resume-template-container.technical h2::after { display: none; }
+.resume-template-container.technical .experience-item,
+.resume-template-container.technical .education-item {
+    border-left: 3px solid #6c757d;
+    padding-left: 1rem;
+}
+
+/* Elegant Template */
+.resume-template-container.elegant {
+    font-family: 'Lora', serif;
+    background-color: #fcfcfc;
+    color: #4a4a4a;
+    border: 1px solid #c9d1d9;
+    width: 700px;
+height: 900px;
+}
+.resume-template-container.elegant .left-column {
+    background-color: #ffffff;
+    border-right: 1px solid #ddd;
+}
+.resume-template-container.elegant .name {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    letter-spacing: 1px;
+    border-bottom: 2px solid #c9d1d9;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+.resume-template-container.elegant .title {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+}
+.resume-template-container.elegant h2 {
+    color: #2c3e50;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+.resume-template-container.elegant h2::after { display: none; }
+.resume-template-container.elegant .experience-item,
+.resume-template-container.elegant .education-item {
+    border-left: 3px solid #7f8c8d;
+    padding-left: 1rem;
+}
+
+/* Minimalist Template */
+.resume-template-container.minimalist {
+    font-family: 'Lato', sans-serif;
+    background-color: #ffffff;
+    color: #333;
+    border: 1px solid #e0e0e0;
+    width: 700px;
+height: 900px;
+}
+.resume-template-container.minimalist .left-column {
+    background-color: #ffffff;
+    border-right: 2px solid #222;
+}
+.resume-template-container.minimalist .name {
+    font-size: 2.8rem;
+    font-weight: 300;
+    color: #222;
+    margin-bottom: 0;
+}
+.resume-template-container.minimalist h2 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    border-bottom: 2px solid #555;
+    padding-bottom: 0.5rem;
+}
+.resume-template-container.minimalist h2::after { display: none; }
+.resume-template-container.minimalist .experience-item,
+.resume-template-container.minimalist .education-item {
+    border-left: 2px solid #ddd;
+    padding-left: 1rem;
+}
+
+/* Business Template */
+.resume-template-container.business {
+    font-family: 'Merriweather', serif;
+    background-color: #ffffff;
+    color: #444;
+    border: 1px solid #c8d3e0;
+    width: 700px;
+height: 900px;
+}
+.resume-template-container.business .left-column {
+    background-color: #e9eff5;
+    border-right: 1px solid #c8d3e0;
+}
+.resume-template-container.business .right-column {
+    background-color: #ffffff;
+    border-left: 5px solid #2c3e50;
+}
+.resume-template-container.business .name {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #2c3e50;
+    letter-spacing: 0.5px;
+}
+.resume-template-container.business .title {
+    font-size: 1.1rem;
+    color: #7f8c8d;
+    font-style: italic;
+}
+.resume-template-container.business h2 {
+    color: #2c3e50;
+    border-bottom: 2px solid #34495e;
+    padding-bottom: 0.3rem;
+}
+.resume-template-container.business h2::after { display: none; }
+
+/* Design Template */
+.resume-template-container.design {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    border: 3px solid #a9b9c9; /* Muted blue border */
+    /* box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1); - Removed for PDF compatibility */
+    width: 700px;
+height: 900px;
+}
+.resume-template-container.design .left-column {
+    background-color: #ffffff;
+    border-right: 4px solid #a9b9c9;
+}
+.resume-template-container.design .name {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #2c3e50;
+    line-height: 1;
+}
+.resume-template-container.design .title {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #888;
+}
+.resume-template-container.design h2 {
+    color: #4a4a4a;
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+}
+.resume-template-container.design h2::after { display: none; }
+
+/* Engineering Template */
+.resume-template-container.engineering {
+    font-family: 'Source Sans Pro', sans-serif;
+    background-color: #ffffff;
+    color: #212529;
+    width: 700px;
+height: 900px;
+    border: 1px solid #e9ecef;
+}
+.resume-template-container.engineering .left-column {
+    background-color: #f7f9fc;
+    border-right: 1px solid #e9ecef;
+}
+.resume-template-container.engineering .name {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #2c3e50;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.resume-template-container.engineering .title {
+    font-size: 1.2rem;
+    color: #495057;
+}
+.resume-template-container.engineering h2 {
+    color: #2c3e50;
+    border-bottom: 2px solid #2c3e50;
+    padding-bottom: 0.2rem;
+}
+.resume-template-container.engineering h2::after { display: none; }
+/* Changed from ::before to a standard list style */
+.resume-template-container.engineering .skills-section ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+.resume-template-container.engineering .skills-section li::before {
+    display: none;
+}
+
+/* Leadership Template */
+.resume-template-container.leadership {
+    font-family: 'Roboto', sans-serif;
+    background-color: #fcfcfc;
+    color: #333;
+    width: 700px;
+height: 900px;
+    border: 1px solid #e0e0e0;
+}
+.resume-template-container.leadership .left-column {
+    background-color: #ffffff;
+    border-right: 1px solid #e0e0e0;
+}
+.resume-template-container.leadership .name {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #2c3e50;
+    letter-spacing: -1px;
+}
+.resume-template-container.leadership .title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #7f8c8d;
+}
+.resume-template-container.leadership h2 {
+    color: #2c3e50;
+    font-size: 1.5rem;
+    text-transform: none;
+    border-bottom: 2px solid #7f8c8d;
+    padding-bottom: 0.3rem;
+}
+.resume-template-container.leadership h2::after { display: none; }
+
+/* Education Template */
+.resume-template-container.education {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f7f9fb;
+    color: #3c3c3c;
+    border: 1px solid #dcdfe3;
+    width: 700px;
+height: 900px;
+}
+.resume-template-container.education .left-column {
+    background-color: #ffffff;
+    border-right: 2px solid #95a5a6;
+}
+.resume-template-container.education .name {
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: #2c3e50;
+}
+.resume-template-container.education .title {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #7f8c8d;
+}
+.resume-template-container.education h2 {
+    color: #2c3e50;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+.resume-template-container.education h2::after { display: none; }
+.resume-template-container.education .experience-item,
+.resume-template-container.education .education-item {
+    border-left: 2px solid #95a5a6;
+    padding-left: 1rem;
+}

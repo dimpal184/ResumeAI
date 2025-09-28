@@ -1,0 +1,185 @@
+/* Main container */
+.login-container {
+  display: flex;
+  justify-content: center;
+  /* border: 2px solid black; */
+  align-items: center;
+  height: 100vh;
+  background: #f9fafb;
+}
+
+/* Card */
+.login-card {
+  width: 380px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 30px;
+    border: 1px solid rgb(97, 98, 97);
+    box-shadow: 0 8px 20px rgba(93, 90, 90, 0.6); 
+  text-align: center;
+  height: 610px;
+}
+
+/* Header */
+.merge{
+  display: flex;
+}
+.logo-circle {
+  width: 20px;
+  height: 20px;
+  background-color: #d8dce4; /* blue */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 13px;
+   margin-left: 100px;
+}
+
+.checkmark {
+  color: rgb(18, 1, 1);
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.login-header h2 {
+  margin: 10px 0 5px;
+    /* border: 2px solid black; */
+    margin-left: 4px;
+      font-size: 17px;
+
+}
+.login-header p {
+  font-size: 13px;
+  font-weight: 500;
+    margin-left: -10px;
+      margin-top: 19px;
+
+}
+.login-header span {
+  font-size: 13px;
+  color: #555;
+}
+
+/* Form */
+.login-form {
+  text-align: left;
+  margin-top: 20px;
+  /* border: 2px solid black; */
+  gap: 800px;
+  padding-bottom:20px;
+}
+.login-form label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  display: flex;
+   /* border: 2px solid black;
+    */font-weight: light;
+   color: rgb(72, 68, 68);
+}
+.part{
+  /* border: 2px solid rgb(52, 19, 187); */
+  margin-bottom: -30px;
+}
+.login-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #b0adad;
+  border-radius: 6px;
+  background: #f9fafb;
+}
+input[type="checkbox"]{
+  height: 18px;
+  margin-top: 15px;
+}
+.login-options {
+  display: flex;
+  justify-content: space-between; /* keeps "Forgot password?" on right */
+  align-items: center; /* vertical alignment */
+  font-size: 14px;
+  margin: 10px 0;
+  /* border: 2px solid black; */
+}
+
+.login-options label {
+  display: flex; 
+  align-items: center; /* 
+  checkbox + text in one line */
+  gap: 4px; /* small space between checkbox and text */
+   /* border: 2px solid black; */
+   /* width: 200px; */
+     margin-top: 5px;
+}
+.login-options label{
+
+  white-space: nowrap; /* keep text in one line */
+}
+
+
+
+
+.login-form input:hover{
+  background-color: #dfe1e3;
+}
+/* Options */
+.login-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.login-options a {
+  font-size: 13px;
+  text-decoration: none;
+  color: #2563eb;
+}
+
+.login-options a:hover{
+  color: #0924d7;
+    text-decoration: underline;
+}
+
+/* Buttons */
+.btn-primary {
+  width: 100%;
+  padding: 12px;
+  background:black;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+}
+.btn-primary:hover {
+  background: #242222;
+  /* transform:scale(0.9) */
+}
+
+
+/* Footer */
+.signup-text {
+  margin: 20px 0 5px;
+  font-size: 14px;
+}
+.signup-text a {
+  color: #2563eb;
+  font-weight: 500;
+  text-decoration: none;
+}
+.signup-text a:hover{
+    color: #172fcc;
+      text-decoration: underline;
+}
+small {
+  font-size: 11px;
+  color: #777;
+}
+small a {
+  color: #2563eb;
+  text-decoration: none;
+}
+small a:hover{
+   color: #0b1a79;
+   text-decoration: underline;
+}

@@ -1,0 +1,986 @@
+// import React, { useEffect, useState } from "react";
+// import { useNavigate } from "react-router-dom";
+// import {
+//     FaHome,
+//     FaPlusCircle,
+//     FaFileAlt,
+//     FaUser,
+//     FaCogs,
+//     FaSignOutAlt,
+//     FaSearch,
+//     FaFilter,
+//     FaCheckCircle,
+//     FaBolt,
+// } from "react-icons/fa";
+// import { Line, Bar } from "react-chartjs-2";
+// import {
+//     Chart as ChartJS,
+//     CategoryScale,
+//     LinearScale,
+//     PointElement,
+//     LineElement,
+//     BarElement,
+//     Title,
+//     Tooltip,
+//     Legend,
+// } from "chart.js";
+// import "./Dashboard.css";
+// import ProfilePage from "./ProfilePage";
+// import BuildResume from "./BuildResume"; // Import the new component
+
+// // Register necessary Chart.js components
+// ChartJS.register(
+//     CategoryScale,
+//     LinearScale,
+//     PointElement,
+//     LineElement,
+//     BarElement,
+//     Title,
+//     Tooltip,
+//     Legend
+// );
+
+// const Dashboard = () => {
+//     const [username, setUsername] = useState("");
+//     // Add 'build-resume' to the view states
+//     const [currentView, setCurrentView] = useState("dashboard"); 
+//     const navigate = useNavigate();
+
+//     // useEffect hook to handle user authentication
+//     useEffect(() => {
+//         const storedUser = localStorage.getItem("user");
+//         if (!storedUser) {
+//             navigate("/login");
+//         } else {
+//             const parsedUser = JSON.parse(storedUser);
+//             setUsername(parsedUser.name);
+//         }
+//     }, [navigate]);
+
+//     // Logout function
+//     const handleLogout = () => {
+//         localStorage.removeItem("user");
+//         localStorage.removeItem("token");
+//         navigate("/login");
+//     };
+
+//     // Handler to change the view
+//     const handleViewChange = (view) => {
+//         setCurrentView(view);
+//     };
+
+//     // Function to get initials from a full name
+//     const getInitials = (name) => {
+//         if (!name) return "";
+//         const parts = name.split(" ");
+//         if (parts.length > 1) {
+//             return (parts[0][0] + parts[1][0]).toUpperCase();
+//         }
+//         return parts[0][0].toUpperCase();
+//     };
+
+//     // Data for the charts
+//     const lineData = {
+//         labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+//         datasets: [{
+//             label: "Resume Strength",
+//             data: [65, 72, 78, 85, 90, 95],
+//             borderColor: "#007bff",
+//             backgroundColor: "#007bff",
+//             tension: 0.3,
+//             fill: false,
+//             pointRadius: 5,
+//         }, ],
+//     };
+
+//     const barData = {
+//         labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+//         datasets: [{
+//             label: "Applications",
+//             data: [7, 12, 14, 16, 20, 22],
+//             backgroundColor: "#000",
+//         }, ],
+//     };
+
+//     return (
+//         <div className="maincontainer">
+//             {/* Top Navbar */}
+//             <div className="navcontainer">
+//                 <div className="merge3">
+//                     <div className="logo-circle2">
+//                         <span className="checkmark2">✓</span>
+//                     </div>
+//                     <h2>ResumeAI</h2>
+//                 </div>
+//                 <div className="nav-right">
+//                     <div className="dropdown">
+//                         <span className="dropdown-icon">⌄</span>
+//                         <span className="help-text">Help</span>
+//                     </div>
+//                     <div className="profile-circle">{getInitials(username)}</div>
+//                 </div>
+//             </div>
+
+//             {/* Main Content Area */}
+//             <div className="innermain">
+//                 {/* Sidebar */}
+//                 <div className="sidebar">
+//                     <ul className="menu">
+//                         <li className={`menu-item ${currentView === 'dashboard' ? 'active' : ''}`} onClick={() => handleViewChange('dashboard')}>
+//                             <FaHome className="icon" />
+//                             <span className="text">Dashboard</span>
+//                         </li>
+//                         <li className="menu-item">
+//                             <FaPlusCircle className="icon" />
+//                             <span className="text" onClick={() => handleViewChange('build-resume')}>Build Resume</span>
+//                         </li>
+//                         <li className="menu-item">
+//                             <FaFileAlt className="icon" />
+//                             <span className="text">My Resumes</span>
+//                         </li>
+//                         <li className={`menu-item ${currentView === 'profile' ? 'active' : ''}`} onClick={() => handleViewChange('profile')}>
+//                             <FaUser className="icon" />
+//                             <span className="text">Profile</span>
+//                         </li>
+//                         <li className="menu-item">
+//                             <FaCogs className="icon" />
+//                             <span className="text">Settings</span>
+//                         </li>
+//                     </ul>
+//                     <div className="logout" onClick={handleLogout}>
+//                         <FaSignOutAlt className="icon" />
+//                         <span className="text">Logout</span>
+//                     </div>
+//                 </div>
+
+//                 {/* Right-side Content */}
+//                 <div className="rightside">
+//                     {currentView === 'dashboard' && (
+//                         <>
+//                             {/* Dashboard Header */}
+//                             <h1>Welcome back, {username}!</h1>
+//                             <p>Here's your resume optimization dashboard</p>
+
+//                             {/* Top Cards Section */}
+//                             <div className="cards-container">
+//                                 <div className="card">
+//                                     <h3>Total Resumes</h3>
+//                                     <p className="number">8</p>
+//                                     <span className="subtext">+2 this month</span>
+//                                 </div>
+//                                 <div className="card">
+//                                     <h3>Job Matches</h3>
+//                                     <p className="number">24</p>
+//                                     <span className="subtext">+12 new this week</span>
+//                                 </div>
+//                                 <div className="card">
+//                                     <h3>Average Score</h3>
+//                                     <p className="number">85%</p>
+//                                     <span className="subtext">+5% improvement</span>
+//                                 </div>
+//                                 <div className="card">
+//                                     <h3>Profile Views</h3>
+//                                     <p className="number">127</p>
+//                                     <span className="subtext">+23 this week</span>
+//                                 </div>
+//                             </div>
+                            
+//                             {/* Main Charts Section */}
+//                             <div className="charts-container">
+//                                 <div className="chart">
+//                                     <h4>Resume Strength Over Time</h4>
+//                                     <p className="chart-subtext">Your resume optimization progress</p>
+//                                     <Line data={lineData} />
+//                                 </div>
+//                                 <div className="chart">
+//                                     <h4>Applications vs Responses</h4>
+//                                     <p className="chart-subtext">Track your job application success rate</p>
+//                                     <Bar data={barData} />
+//                                     <div className="bar-chart-details">
+//                                         <div className="detail-item">
+//                                             <p className="detail-label">Response Rate</p>
+//                                             <p className="detail-value">56%</p>
+//                                         </div>
+//                                         <div className="detail-item">
+//                                             <p className="detail-label">This Month</p>
+//                                             <p className="detail-value">14/25</p>
+//                                         </div>
+//                                     </div>
+//                                 </div>
+//                             </div>
+                            
+//                             {/* Filter and Jobs section */}
+//                             <div className="filter-bar">
+//                                 <div className="search-input">
+//                                     <FaSearch className="icon" />
+//                                     <input type="text" placeholder="Search resumes or jobs..." />
+//                                 </div>
+//                                 <div className="dropdowns">
+//                                     <div className="filter-dropdown">
+//                                         <span>Location</span>
+//                                         <span className="dropdown-arrow">⌄</span>
+//                                     </div>
+//                                     <div className="filter-dropdown">
+//                                         <span>Match Score</span>
+//                                         <span className="dropdown-arrow">⌄</span>
+//                                     </div>
+//                                     <div className="filter-dropdown">
+//                                         <span>Salary</span>
+//                                         <span className="dropdown-arrow">⌄</span>
+//                                     </div>
+//                                 </div>
+//                                 <button className="clear-filters-button">
+//                                     <FaFilter className="icon" />
+//                                     <span>Clear Filters</span>
+//                                 </button>
+//                             </div>
+
+//                             <div className="dashboard-layout">
+//                                 <div className="recent-resumes-section">
+//                                     <div className="section-header">
+//                                         <h3>Recent Resumes</h3>
+//                                         <a href="#" className="view-all">View All</a>
+//                                     </div>
+//                                     <p>Your latest resume projects</p>
+//                                     <div className="resume-list">
+//                                         {/* Resume Items */}
+//                                         <div className="resume-item">
+//                                             <h4>Software Engineer Resume</h4>
+//                                             <p className="date">2 days ago</p>
+//                                             <span className="status complete">Complete 92%</span>
+//                                         </div>
+//                                         <div className="resume-item">
+//                                             <h4>Product Manager Resume</h4>
+//                                             <p className="date">1 week ago</p>
+//                                             <span className="status in-progress">In Progress 78%</span>
+//                                         </div>
+//                                         <div className="resume-item">
+//                                             <h4>Data Analyst Resume</h4>
+//                                             <p className="date">2 weeks ago</p>
+//                                             <span className="status complete">Complete 85%</span>
+//                                         </div>
+//                                     </div>
+//                                     <button className="create-new-button" onClick={() => handleViewChange('build-resume')}>
+//                                         <FaPlusCircle /> Create New Resume
+//                                     </button>
+//                                 </div>
+//                                 <div className="recommended-jobs-section">
+//                                     <h3>Recommended Jobs</h3>
+//                                     <p>AI-matched opportunities for you</p>
+//                                     <div className="job-list">
+//                                         {/* Job Items */}
+//                                         <div className="job-item">
+//                                             <h4>Senior Frontend Developer</h4>
+//                                             <p className="company">TechCorp • San Francisco, CA</p>
+//                                             <p className="salary">$120k - 160k</p>
+//                                             <span className="match-score">95% match</span>
+//                                             <div className="match-bar-container">
+//                                                 <div className="match-bar" style={{ width: '95%' }}></div>
+//                                             </div>
+//                                         </div>
+//                                         <div className="job-item">
+//                                             <h4>Full Stack Engineer</h4>
+//                                             <p className="company">StartupXYZ • Remote</p>
+//                                             <p className="salary">$100k - 140k</p>
+//                                             <span className="match-score">88% match</span>
+//                                             <div className="match-bar-container">
+//                                                 <div className="match-bar" style={{ width: '88%' }}></div>
+//                                             </div>
+//                                         </div>
+//                                         <div className="job-item">
+//                                             <h4>React Developer</h4>
+//                                             <p className="company">InnovateTech • Austin, TX</p>
+//                                             <p className="salary">$90k - 130k</p>
+//                                             <span className="match-score">82% match</span>
+//                                             <div className="match-bar-container">
+//                                                 <div className="match-bar" style={{ width: '82%' }}></div>
+//                                             </div>
+//                                         </div>
+//                                     </div>
+//                                 </div>
+//                             </div>
+
+//                             {/* Quick Actions Section */}
+//                             <div className="quick-actions-container">
+//                                 <h2>Quick Actions</h2>
+//                                 <p>Get started with common tasks</p>
+//                                 <div className="action-cards-grid">
+//                                     {/* Add an onClick handler to the card */}
+//                                     <div className="action-card" onClick={() => handleViewChange('build-resume')}>
+//                                         <FaPlusCircle className="action-icon blue" />
+//                                         <h3>Build New Resume</h3>
+//                                         <p>Start from scratch or template</p>
+//                                     </div>
+//                                     <div className="action-card">
+//                                         <FaCheckCircle className="action-icon green" />
+//                                         <h3>ATS Optimization</h3>
+//                                         <p>Improve resume scanning</p>
+//                                     </div>
+//                                     <div className="action-card">
+//                                         <FaBolt className="action-icon purple" />
+//                                         <h3>AI Analysis</h3>
+//                                         <p>Get personalized insights</p>
+//                                     </div>
+//                                 </div>
+//                             </div>
+//                         </>
+//                     )}
+                    
+//                     {/* Conditionally render the correct component */}
+//                     {currentView === 'profile' && <ProfilePage username={username} />}
+//                     {currentView === 'build-resume' &&  <BuildResume onBackToDashboard={() => handleViewChange('dashboard')} />}
+//                 </div>
+//             </div>
+//         </div>
+//     );
+// };
+
+// export default Dashboard;
+
+
+// import React, { useState, useRef } from 'react';
+// import { FaArrowLeft, FaPlusCircle, FaCloudUploadAlt, FaTrash, FaPlus, FaDownload } from 'react-icons/fa';
+// import html2pdf from 'html2pdf.js';
+// import './BuildResume.css';
+// import ResumeTemplate from './ResumeTemplate';
+
+// // This is a new, simplified form component
+// const ResumeForm = ({ resumeData, setResumeData }) => {
+//     const handleTextChange = (section, field, e) => {
+//         const { value } = e.target;
+//         setResumeData(prevData => ({
+//             ...prevData,
+//             [section]: {
+//                 ...prevData[section],
+//                 [field]: value
+//             }
+//         }));
+//     };
+
+//     const handleArrayChange = (section, index, field, e) => {
+//         const { value } = e.target;
+//         setResumeData(prevData => {
+//             const newArray = [...prevData[section]];
+//             newArray[index] = { ...newArray[index], [field]: value };
+//             return { ...prevData, [section]: newArray };
+//         });
+//     };
+
+//     const handleSingleFieldArrayChange = (section, index, e) => {
+//         const { value } = e.target;
+//         setResumeData(prevData => {
+//             const newArray = [...prevData[section]];
+//             newArray[index] = value;
+//             return { ...prevData, [section]: newArray };
+//         });
+//     };
+
+//     const addArrayItem = (section, itemTemplate) => {
+//         setResumeData(prevData => ({
+//             ...prevData,
+//             [section]: [...prevData[section], itemTemplate]
+//         }));
+//     };
+
+//     const removeArrayItem = (section, index) => {
+//         setResumeData(prevData => ({
+//             ...prevData,
+//             [section]: prevData[section].filter((_, i) => i !== index)
+//         }));
+//     };
+
+//     return (
+//         <div className="resume-form-container">
+//             <h3>Contact Information</h3>
+//             <form>
+//                 <input
+//                     type="text"
+//                     placeholder="Full Name"
+//                     value={resumeData.contact.name || ''}
+//                     onChange={(e) => handleTextChange('contact', 'name', e)}
+//                 />
+//                 <input
+//                     type="text"
+//                     placeholder="Job Title"
+//                     value={resumeData.contact.title || ''}
+//                     onChange={(e) => handleTextChange('contact', 'title', e)}
+//                 />
+//                 <input
+//                     type="text"
+//                     placeholder="Phone Number"
+//                     value={resumeData.contact.phone || ''}
+//                     onChange={(e) => handleTextChange('contact', 'phone', e)}
+//                 />
+//                 <input
+//                     type="email"
+//                     placeholder="Email Address"
+//                     value={resumeData.contact.email || ''}
+//                     onChange={(e) => handleTextChange('contact', 'email', e)}
+//                 />
+//                 <input
+//                     type="text"
+//                     placeholder="LinkedIn Profile"
+//                     value={resumeData.contact.linkedin || ''}
+//                     onChange={(e) => handleTextChange('contact', 'linkedin', e)}
+//                 />
+//                 <input
+//                     type="text"
+//                     placeholder="Location"
+//                     value={resumeData.contact.location || ''}
+//                     onChange={(e) => handleTextChange('contact', 'location', e)}
+//                 />
+//             </form>
+
+//             <h3 className="form-section-header">Professional Summary</h3>
+//             <textarea
+//                 className="summary-textarea"
+//                 placeholder="Write a brief professional summary..."
+//                 value={resumeData.summary || ''}
+//                 onChange={(e) => setResumeData(prevData => ({ ...prevData, summary: e.target.value }))}
+//             ></textarea>
+
+//             <h3 className="form-section-header">
+//                 Work Experience
+//                 <button
+//                     type="button"
+//                     onClick={() => addArrayItem('experience', { title: '', company: '', startDate: '', endDate: '', details: [''] })}
+//                     className="add-button"
+//                 >
+//                     <FaPlus />
+//                 </button>
+//             </h3>
+//             {resumeData.experience.map((job, index) => (
+//                 <div key={index} className="form-entry">
+//                     <div className="entry-header">
+//                         <h4>Job #{index + 1}</h4>
+//                         <button type="button" onClick={() => removeArrayItem('experience', index)} className="remove-button">
+//                             <FaTrash />
+//                         </button>
+//                     </div>
+//                     <input
+//                         type="text"
+//                         placeholder="Job Title"
+//                         value={job.title || ''}
+//                         onChange={(e) => handleArrayChange('experience', index, 'title', e)}
+//                     />
+//                     <input
+//                         type="text"
+//                         placeholder="Company"
+//                         value={job.company || ''}
+//                         onChange={(e) => handleArrayChange('experience', index, 'company', e)}
+//                     />
+//                     <div className="date-inputs">
+//                         <input type="text" placeholder="Start Date" value={job.startDate || ''} onChange={(e) => handleArrayChange('experience', index, 'startDate', e)} />
+//                         <input type="text" placeholder="End Date" value={job.endDate || ''} onChange={(e) => handleArrayChange('experience', index, 'endDate', e)} />
+//                     </div>
+//                     {Array.isArray(job.details) && job.details.map((detail, detailIndex) => (
+//                         <div key={detailIndex} className="detail-row">
+//                             <textarea
+//                                 placeholder="Key responsibility/achievement..."
+//                                 value={detail || ''}
+//                                 onChange={(e) => {
+//                                     const newDetails = [...job.details];
+//                                     newDetails[detailIndex] = e.target.value;
+//                                     handleArrayChange('experience', index, 'details', { target: { value: newDetails } });
+//                                 }}
+//                             ></textarea>
+//                             {job.details.length > 1 && (
+//                                 <button type="button" onClick={() => {
+//                                     const newDetails = job.details.filter((_, i) => i !== detailIndex);
+//                                     handleArrayChange('experience', index, 'details', { target: { value: newDetails } });
+//                                 }} className="remove-detail">
+//                                     <FaTrash />
+//                                 </button>
+//                             )}
+//                         </div>
+//                     ))}
+//                     <button type="button" onClick={() => {
+//                         const newDetails = job.details ? [...job.details, ''] : [''];
+//                         handleArrayChange('experience', index, 'details', { target: { value: newDetails } });
+//                     }} className="add-detail">
+//                         <FaPlus /> Add Point
+//                     </button>
+//                 </div>
+//             ))}
+
+//             <h3 className="form-section-header">
+//                 Education
+//                 <button
+//                     type="button"
+//                     onClick={() => addArrayItem('education', { degree: '', university: '', startDate: '', endDate: '' })}
+//                     className="add-button"
+//                 >
+//                     <FaPlus />
+//                 </button>
+//             </h3>
+//             {resumeData.education.map((edu, index) => (
+//                 <div key={index} className="form-entry">
+//                     <div className="entry-header">
+//                         <h4>Education #{index + 1}</h4>
+//                         <button type="button" onClick={() => removeArrayItem('education', index)} className="remove-button">
+//                             <FaTrash />
+//                         </button>
+//                     </div>
+//                     <input
+//                         type="text"
+//                         placeholder="Degree"
+//                         value={edu.degree || ''}
+//                         onChange={(e) => handleArrayChange('education', index, 'degree', e)}
+//                     />
+//                     <input
+//                         type="text"
+//                         placeholder="University"
+//                         value={edu.university || ''}
+//                         onChange={(e) => handleArrayChange('education', index, 'university', e)}
+//                     />
+//                     <div className="date-inputs">
+//                         <input type="text" placeholder="Start Date" value={edu.startDate || ''} onChange={(e) => handleArrayChange('education', index, 'startDate', e)} />
+//                         <input type="text" placeholder="End Date" value={edu.endDate || ''} onChange={(e) => handleArrayChange('education', index, 'endDate', e)} />
+//                     </div>
+//                 </div>
+//             ))}
+
+//             <h3 className="form-section-header">
+//                 Skills
+//                 <button
+//                     type="button"
+//                     onClick={() => addArrayItem('skills', '')}
+//                     className="add-button"
+//                 >
+//                     <FaPlus />
+//                 </button>
+//             </h3>
+//             {resumeData.skills.map((skill, index) => (
+//                 <div key={index} className="form-entry single-field-entry">
+//                     <input
+//                         type="text"
+//                         placeholder="Skill (e.g., JavaScript, Project Management)"
+//                         value={skill || ''}
+//                         onChange={(e) => handleSingleFieldArrayChange('skills', index, e)}
+//                     />
+//                     <button type="button" onClick={() => removeArrayItem('skills', index)} className="remove-button">
+//                         <FaTrash />
+//                     </button>
+//                 </div>
+//             ))}
+
+//             <h3 className="form-section-header">
+//                 Projects
+//                 <button
+//                     type="button"
+//                     onClick={() => addArrayItem('projects', { name: '', description: '' })}
+//                     className="add-button"
+//                 >
+//                     <FaPlus />
+//                 </button>
+//             </h3>
+//             {resumeData.projects.map((project, index) => (
+//                 <div key={index} className="form-entry">
+//                     <div className="entry-header">
+//                         <h4>Project #{index + 1}</h4>
+//                         <button type="button" onClick={() => removeArrayItem('projects', index)} className="remove-button">
+//                             <FaTrash />
+//                         </button>
+//                     </div>
+//                     <input
+//                         type="text"
+//                         placeholder="Project Name"
+//                         value={project.name || ''}
+//                         onChange={(e) => handleArrayChange('projects', index, 'name', e)}
+//                     />
+//                     <textarea
+//                         placeholder="Project description..."
+//                         value={project.description || ''}
+//                         onChange={(e) => handleArrayChange('projects', index, 'description', e)}
+//                     ></textarea>
+//                 </div>
+//             ))}
+
+//             <h3 className="form-section-header">
+//                 Awards
+//                 <button
+//                     type="button"
+//                     onClick={() => addArrayItem('awards', { name: '', description: '' })}
+//                     className="add-button"
+//                 >
+//                     <FaPlus />
+//                 </button>
+//             </h3>
+//             {resumeData.awards.map((award, index) => (
+//                 <div key={index} className="form-entry">
+//                     <div className="entry-header">
+//                         <h4>Award #{index + 1}</h4>
+//                         <button type="button" onClick={() => removeArrayItem('awards', index)} className="remove-button">
+//                             <FaTrash />
+//                         </button>
+//                     </div>
+//                     <input
+//                         type="text"
+//                         placeholder="Award Name"
+//                         value={award.name || ''}
+//                         onChange={(e) => handleArrayChange('awards', index, 'name', e)}
+//                     />
+//                     <textarea
+//                         placeholder="Award description..."
+//                         value={award.description || ''}
+//                         onChange={(e) => handleArrayChange('awards', index, 'description', e)}
+//                     ></textarea>
+//                 </div>
+//             ))}
+
+//             <h3 className="form-section-header">
+//                 Languages
+//                 <button
+//                     type="button"
+//                     onClick={() => addArrayItem('languages', '')}
+//                     className="add-button"
+//                 >
+//                     <FaPlus />
+//                 </button>
+//             </h3>
+//             {resumeData.languages.map((language, index) => (
+//                 <div key={index} className="form-entry single-field-entry">
+//                     <input
+//                         type="text"
+//                         placeholder="Language (e.g., Spanish - Fluent)"
+//                         value={language || ''}
+//                         onChange={(e) => handleSingleFieldArrayChange('languages', index, e)}
+//                     />
+//                     <button type="button" onClick={() => removeArrayItem('languages', index)} className="remove-button">
+//                         <FaTrash />
+//                     </button>
+//                 </div>
+//             ))}
+
+//             <h3 className="form-section-header">
+//                 Interests
+//                 <button
+//                     type="button"
+//                     onClick={() => addArrayItem('interests', '')}
+//                     className="add-button"
+//                 >
+//                     <FaPlus />
+//                 </button>
+//             </h3>
+//             {resumeData.interests.map((interest, index) => (
+//                 <div key={index} className="form-entry single-field-entry">
+//                     <input
+//                         type="text"
+//                         placeholder="Interest (e.g., Hiking, Chess)"
+//                         value={interest || ''}
+//                         onChange={(e) => handleSingleFieldArrayChange('interests', index, e)}
+//                     />
+//                     <button type="button" onClick={() => removeArrayItem('interests', index)} className="remove-button">
+//                         <FaTrash />
+//                     </button>
+//                 </div>
+//             ))}
+//         </div>
+//     );
+// };
+
+// const allTemplates = [
+//     { name: 'professional', label: 'Professional', description: 'Modern and clean design', tag: 'Business', imageSrc: '/images/professional.png' },
+//     { name: 'creative', label: 'Creative', description: 'Bold and artistic layout', tag: 'Design', imageSrc: '/images/creative.png' },
+//     { name: 'technical', label: 'Technical', description: 'Skills-focused format', tag: 'Engineering', imageSrc: '/images/technical.png' },
+//     { name: 'elegant', label: 'Elegant', description: 'Classic and timeless design', tag: 'Timeless', new: true, imageSrc: '/images/elegant.png' },
+//     { name: 'minimalist', label: 'Minimalist', description: 'Clean and simple design', tag: 'Modern', new: true, imageSrc: '/images/minimalist.png' },
+//     { name: 'business', label: 'Business', description: 'Professional and classic', tag: 'Business', imageSrc: '/images/business.png' },
+//     { name: 'design', label: 'Design', description: 'Visually creative and dynamic', tag: 'Design', imageSrc: '/images/design.png' },
+//     { name: 'engineering', label: 'Engineering', description: 'Focused on skills and clarity', tag: 'Engineering', imageSrc: '/images/engineering.png' },
+//     { name: 'leadership', label: 'Leadership', description: 'Structured and achievement-oriented', tag: 'Leadership', imageSrc: '/images/leadership.png' },
+//     { name: 'education', label: 'Education', description: 'Highlights academics and skills', tag: 'Education', imageSrc: '/images/education.png' }
+// ];
+
+// const BuildResume = ({ onBackToDashboard }) => {
+//     const [resumeData, setResumeData] = useState({
+//         contact: {
+//             name: "",
+//             title: "",
+//             phone: "",
+//             email: "",
+//             linkedin: "",
+//             location: ""
+//         },
+//         summary: "",
+//         experience: [{ title: "", company: "", startDate: "", endDate: "", details: [""] }],
+//         education: [{ degree: "", university: "", startDate: "", endDate: "" }],
+//         skills: [""],
+//         projects: [{ name: "", description: "" }],
+//         awards: [{ name: "", description: "" }],
+//         languages: [""],
+//         interests: [""]
+//     });
+
+//     const [selectedTemplate, setSelectedTemplate] = useState(null);
+//     const [activeFilter, setActiveFilter] = useState('All');
+//     const resumeRef = useRef(null);
+
+//     const handleUseTemplate = (templateName) => {
+//         setSelectedTemplate(templateName);
+//     };
+
+//     const handleStartFromScratch = () => {
+//         setSelectedTemplate('professional');
+//     };
+
+//     const handleFilterChange = (filter) => {
+//         setActiveFilter(filter);
+//     };
+
+//     const filteredTemplates = activeFilter === 'All'
+//         ? allTemplates
+//         : allTemplates.filter(template => template.tag === activeFilter);
+
+//     const handleDownloadPDF = () => {
+//         const element = resumeRef.current;
+//         if (element) {
+//             element.classList.add('pdf-export-mode');
+
+//             const opt = {
+//                 margin: [0.5, 2.5, 0.5, 0.5],
+//                 filename: 'my-resume.pdf',
+//                 image: { type: 'jpeg', quality: 0.98 },
+//                 html2canvas: {
+//                     scale: 9,
+//                     width: 750,
+//                     windowWidth: 750,
+//                 },
+//                 jsPDF: { unit: 'pt', format: 'a3', orientation: 'portrait' }
+//             };
+
+//             html2pdf().from(element).set(opt).save().finally(() => {
+//                 element.classList.remove('pdf-export-mode');
+//             });
+//         }
+//     };
+
+//     // Conditional rendering logic
+//     if (selectedTemplate) {
+//         return (
+//             <div className="resume-editor-page">
+//                 <div className="editor-sidebar">
+//                     <a href="#" className="back-link" onClick={() => setSelectedTemplate(null)}>
+//                         <FaArrowLeft /> Back to Templates
+//                     </a>
+//                     <div className="logo-section">
+//                         <img src="/logo.svg" alt="ResumeAI" className="logo" />
+//                         <h2>ResumeAI</h2>
+//                     </div>
+//                     <ResumeForm
+//                         resumeData={resumeData}
+//                         setResumeData={setResumeData}
+//                     />
+//                 </div>
+//                 <div className="resume-preview-area" ref={resumeRef}>
+//                     <ResumeTemplate resumeData={resumeData} theme={selectedTemplate} />
+//                     <button className="download-button" onClick={handleDownloadPDF}>
+//                         <FaDownload /> Download PDF
+//                     </button>
+//                 </div>
+//             </div>
+//         );
+//     }
+
+//     // Default return for template selection view
+//     return (
+//         <div className="build-resume-container">
+//             <header className="page-header">
+//                 <a href="#" className="back-link" onClick={onBackToDashboard}>
+//                     <FaArrowLeft /> Back to Dashboard
+//                 </a>
+//                 <div className="logo-section">
+//                     <img src="/logo.svg" alt="ResumeAI" className="logo" />
+//                     <h2>ResumeAI</h2>
+//                 </div>
+//             </header>
+
+//             <main className="main-content">
+//                 <h1>Build Your Resume</h1>
+//                 <p>Choose a template to get started or create from scratch</p>
+
+//                 <div className="options-container">
+//                     <div className="option-card">
+//                         <div className="option-header">
+//                             <FaPlusCircle className="option-icon" />
+//                             <h3>Start from Scratch</h3>
+//                         </div>
+//                         <p>Build your resume from a blank template with AI guidance</p>
+//                         <button className="cta-button primary" onClick={handleStartFromScratch}>Create New Resume</button>
+//                     </div>
+
+//                     <div className="option-card">
+//                         <div className="option-header">
+//                             <FaCloudUploadAlt className="option-icon" />
+//                             <h3>Upload Existing Resume</h3>
+//                         </div>
+//                         <p>Import your current resume and let AI optimize it</p>
+//                         <button className="cta-button">Upload Resume</button>
+//                     </div>
+//                 </div>
+
+//                 <div className="templates-section">
+//                     <h2>Choose a Template</h2>
+//                     <div className="template-filters">
+//                         {['All', 'Business', 'Design', 'Engineering', 'Leadership', 'Education'].map(filter => (
+//                             <button
+//                                 key={filter}
+//                                 className={`filter-button ${activeFilter === filter ? 'active' : ''}`}
+//                                 onClick={() => handleFilterChange(filter)}
+//                             >
+//                                 {filter}
+//                             </button>
+//                         ))}
+//                     </div>
+
+//                     <div className="templates-grid">
+//                         {filteredTemplates.map(template => (
+//                             <div
+//                                 key={template.name}
+//                                 className={`template-card ${template.new ? 'popular' : ''}`}
+//                                 onClick={() => handleUseTemplate(template.name)}
+//                             >
+//                                 {template.new && <span className="popular-badge">New</span>}
+//                                 {template.imageSrc && (
+//                                     <img
+//                                         src={template.imageSrc}
+//                                         alt={`${template.label} Resume Template Preview`}
+//                                         className={`template-preview ${template.name}`}
+//                                     />
+//                                 )}
+//                                 <h3>{template.label}</h3>
+//                                 <p className="template-description">{template.description}</p>
+//                                 <span className="template-tag">{template.tag}</span>
+//                                 <button className="use-template-button">Use This Template</button>
+//                             </div>
+//                         ))}
+//                     </div>
+//                 </div>
+//             </main>
+//         </div>
+//     );
+// };
+
+// export default BuildResume;
+
+
+// import React from 'react';
+// import { FaPhone, FaEnvelope, FaLinkedin, FaMapMarkerAlt } from 'react-icons/fa';
+// import './ResumeTemplate.css';
+
+// const ResumeTemplate = React.forwardRef(({ resumeData, theme }, ref) => {
+//     // Destructure data for easier use, providing default values to prevent errors
+//     const { contact = {}, summary = "", experience = [], education = [], skills = [],
+//         projects = [], // Add projects
+//         awards = [],  // Add awards
+//         languages = [], // Add languages
+//         interests = []  // Add interests
+//     } = resumeData || {};
+
+//     return (
+//         <div className={`resume-template-container ${theme}`} ref={ref}>
+//             <div className="left-column">
+//                 <section className="contact-section">
+//                     <h2>CONTACT</h2>
+//                     <p className="name">{contact.name || "YOUR NAME"}</p>
+//                     <p className="title">{contact.title || "Your Job Title"}</p>
+//                     <div className="contact-item"><FaPhone /> <p>{contact.phone || "(123) 456-7890"}</p></div>
+//                     <div className="contact-item"><FaEnvelope /> <p>{contact.email || "email@example.com"}</p></div>
+//                     <div className="contact-item"><FaLinkedin /> <p>{contact.linkedin || "linkedin.com/in/profile"}</p></div>
+//                     <div className="contact-item"><FaMapMarkerAlt /> <p>{contact.location || "City, State"}</p></div>
+//                 </section>
+                
+//                 <section className="skills-section">
+//                     <h2>SKILLS</h2>
+//                     <ul>
+//                         {skills.map((skill, index) => (
+//                             <li key={index}>{skill}</li>
+//                         ))}
+//                     </ul>
+//                 </section>
+
+//                 <section className="education-section">
+//                     <h2>EDUCATION</h2>
+//                     {education.map((edu, index) => (
+//                         <div key={index} className="education-item">
+//                             <h4>{edu.degree || "Degree Name"}</h4>
+//                             <p className="university">{edu.university || "University Name"}</p>
+//                             <p className="dates">{edu.startDate} - {edu.endDate || "Present"}</p>
+//                         </div>
+//                     ))}
+//                 </section>
+
+//                 {languages.length > 0 && (
+//                     <section className="languages-section">
+//                         <h2>LANGUAGES</h2>
+//                         <ul>
+//                             {languages.map((lang, index) => (
+//                                 <li key={index}>{lang}</li>
+//                             ))}
+//                         </ul>
+//                     </section>
+//                 )}
+
+//                 {interests.length > 0 && (
+//                     <section className="interests-section">
+//                         <h2>INTERESTS</h2>
+//                         <ul>
+//                             {interests.map((interest, index) => (
+//                                 <li key={index}>{interest}</li>
+//                             ))}
+//                         </ul>
+//                     </section>
+//                 )}
+//             </div>
+
+//             <div className="right-column">
+//                 <section className="summary-section">
+//                     <h2>SUMMARY</h2>
+//                     <p>{summary || "A compelling summary of your professional background and career goals."}</p>
+//                 </section>
+                
+//                 <section className="experience-section">
+//                     <h2>WORK EXPERIENCE</h2>
+//                     {experience.map((job, index) => (
+//                         <div key={index} className="experience-item">
+//                             <h4>{job.title || "Job Title"}</h4>
+//                             <p className="company-info">{job.company || "Company Name"} | {job.location || "City, State"}</p>
+//                             <p className="dates">{job.startDate} - {job.endDate || "Present"}</p>
+//                             <ul>
+//                                 {Array.isArray(job.details) && job.details.map((detail, detailIndex) => (
+//                                     <li key={detailIndex}>{detail}</li>
+//                                 ))}
+//                             </ul>
+//                         </div>
+//                     ))}
+//                 </section>
+
+//                 {projects.length > 0 && (
+//                     <section className="projects-section">
+//                         <h2>PROJECTS</h2>
+//                         {projects.map((project, index) => (
+//                             <div key={index} className="project-item">
+//                                 <h4>{project.name || "Project Name"}</h4>
+//                                 <p>{project.description || "Brief description of the project."}</p>
+//                             </div>
+//                         ))}
+//                     </section>
+//                 )}
+
+//                 {awards.length > 0 && (
+//                     <section className="awards-section">
+//                         <h2>AWARDS & CERTIFICATIONS</h2>
+//                         {awards.map((award, index) => (
+//                             <div key={index} className="award-item">
+//                                 <h4>{award.name || "Award Name"}</h4>
+//                                 <p>{award.description || "Brief description of the achievement."}</p>
+//                             </div>
+//                         ))}
+//                     </section>
+//                 )}
+//             </div>
+//         </div>
+//     );
+// });
+
+// export default ResumeTemplate;
